@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nxygram is an independent, unofficial Telegram client. Keep these app labels
+         in the app module so the upstream/localization resource set remains untouched. -->
+    <string name="AppName">Nxygram</string>
+    <string name="AppNameBeta">Nxygram Beta</string>
+</resources>
