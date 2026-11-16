@@ -1,0 +1,75 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     NXYGRAM — AndroidManifest.xml additions
+     Add ALL of these inside the <application> tag
+     File: TMessagesProj/src/main/AndroidManifest.xml
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- Permissions (add before <application> tag) -->
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+<uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+<uses-permission android:name="android.permission.VIBRATE"/>
+<uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+<uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+
+<!-- Activities -->
+<activity
+    android:name="com.nxygram.NxygramSettingsActivity"
+    android:exported="false"
+    android:label="Nxygram Settings" />
+
+<activity
+    android:name="com.nxygram.AppLockActivity"
+    android:exported="false"
+    android:windowSoftInputMode="stateHidden"
+    android:excludeFromRecents="true" />
+
+<activity
+    android:name="com.nxygram.ThemeStudioActivity"
+    android:exported="false"
+    android:label="Theme Studio" />
+
+<activity
+    android:name="com.nxygram.DeletedMessagesActivity"
+    android:exported="false"
+    android:label="Preserved Messages" />
+
+<activity
+    android:name="com.nxygram.SchedulerActivity"
+    android:exported="false"
+    android:label="Scheduled Messages" />
+
+<activity
+    android:name="com.nxygram.StorageAnalyzerActivity"
+    android:exported="false"
+    android:label="Storage Analyzer" />
+
+<activity
+    android:name="com.nxygram.NxygramAiChatActivity"
+    android:exported="false"
+    android:windowSoftInputMode="adjustResize"
+    android:label="Nxygram AI" />
+
+<!-- Receivers -->
+<receiver
+    android:name="com.nxygram.MessageScheduler$ScheduledMessageReceiver"
+    android:exported="false" />
+
+<receiver
+    android:name="com.nxygram.MessageScheduler$BootReceiver"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+    </intent-filter>
+</receiver>
+
+<!-- Phase 7 Activities -->
+<activity android:name="com.nxygram.AutoReplySettingsActivity"
+          android:exported="false"/>
+<activity android:name="com.nxygram.GlobalSearchActivity"
+          android:exported="false"
+          android:windowSoftInputMode="stateAlwaysVisible"/>
+<activity android:name="com.nxygram.ChatLockActivity"
+          android:exported="false"/>
+
+<!-- Phase 7: Custom icon aliases (add your icon drawables to mipmap) -->
+<!-- See TelegramThemeImporter.java for full alias list -->
