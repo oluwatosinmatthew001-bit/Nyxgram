@@ -27,6 +27,10 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: |
+            platform-tools
+            cmdline-tools;latest
 
       - name: Install Android SDK packages
         shell: bash
@@ -42,7 +46,6 @@ jobs:
 
           yes | sdkmanager --licenses
           sdkmanager --install \
-            "cmdline-tools;latest" \
             "platform-tools" \
             "platforms;android-34" \
             "build-tools;34.0.0" \
