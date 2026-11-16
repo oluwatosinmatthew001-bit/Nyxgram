@@ -28,13 +28,26 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install NDK
+      - name: Install Android SDK packages
+        shell: bash
         run: |
-          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
-            "ndk;21.4.7075529" \
-            "cmake;3.22.1" \
+          set -eux
+          export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
+
+          if [ ! -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
+            echo "sdkmanager not found at $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+            ls -R "$ANDROID_HOME" || true
+            exit 1
+          fi
+
+          yes | sdkmanager --licenses
+          sdkmanager --install \
+            "cmdline-tools;latest" \
+            "platform-tools" \
             "platforms;android-34" \
-            "build-tools;34.0.0"
+            "build-tools;34.0.0" \
+            "cmake;3.22.1" \
+            "ndk;21.4.7075529"
 
       - name: Write Telegram API credentials
         run: |
