@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build Debug APK
+    name: Build Nyxgram Debug APK
     runs-on: ubuntu-latest
 
     steps:
@@ -34,19 +34,11 @@ jobs:
         shell: bash
         run: |
           set -eux
-          export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
-
-          if [ ! -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
-            echo "sdkmanager not found at $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
-            ls -R "$ANDROID_HOME" || true
-            exit 1
-          fi
-
           sdkmanager --install \
-            "platforms;android-34" \
-            "build-tools;34.0.0" \
+            "platforms;android-36" \
+            "build-tools;36.0.0" \
             "cmake;3.22.1" \
-            "ndk;21.4.7075529"
+            "ndk;27.2.12479018"
 
       - name: Write Telegram API credentials
         run: |
@@ -72,16 +64,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug --stacktrace --no-daemon
+      - name: Build Nyxgram Debug APK
+        run: ./gradlew :TMessagesProj_App:assembleAfatDebug --stacktrace --no-daemon
         env:
           GRADLE_OPTS: "-Xmx4g -Dorg.gradle.daemon=false -Dorg.gradle.parallel=false"
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: Nxygram-debug-${{ github.sha }}
-          path: TMessagesProj/build/outputs/apk/debug/*.apk
+          name: Nyxgram-debug-${{ github.sha }}
+          path: TMessagesProj_App/build/outputs/apk/afat/debug/*.apk
+          if-no-files-found: error
           retention-days: 30
 
       - name: Upload build logs on failure
@@ -90,6 +83,7 @@ jobs:
         with:
           name: build-logs-${{ github.sha }}
           path: |
-            TMessagesProj/build/reports/
+            TMessagesProj_App/build/reports/
+            TMessagesProj_App/build/outputs/logs/
             ~/.gradle/daemon/*/daemon-*.out.log
           retention-days: 7
