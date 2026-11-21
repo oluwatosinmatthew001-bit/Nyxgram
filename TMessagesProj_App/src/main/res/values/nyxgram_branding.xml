@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nyxgram app label override for app-module debug/release variants. -->
+    <string name="AppName">Nyxgram</string>
+    <string name="AppNameBeta">Nyxgram</string>
+</resources>
